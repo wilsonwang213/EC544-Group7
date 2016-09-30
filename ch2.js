@@ -46,8 +46,8 @@ sp.on("open", function () {
   sp.on('data', function(data) {
     console.log('data received: ' + data);  //capture the messgae in serialport
     var temp = new Number((parseFloat)(data));
-    
-    if (f[temp/100]==0)
+    var index = parseInt(temp/100);
+    if (f[index]==0)
     {
     	var cnt = 0;
     	var sum = 0;
@@ -67,26 +67,26 @@ sp.on("open", function () {
  			tmp[i] = 0;
  		}
     }
-    tmp[temp/100] = temp%100;
-    f[temp/100]--;
+    tmp[index] = temp%100;
+    f[index]--;
 
 
-    -- io.emit("chat message", "Temperature: " + data);
-    -- if (temp > 80 || temp < 30) {
-    --   io.emit("chat message", "Warning: temperature exception!");
-    --   flag++;
-    --   temp = 0;
-    -- } 
-    -- sum += temp;  // accumulate temperature of each sensors
+    // -- io.emit("chat message", "Temperature: " + data);
+    // -- if (temp > 80 || temp < 30) {
+    // --   io.emit("chat message", "Warning: temperature exception!");
+    // --   flag++;
+    // --   temp = 0;
+    // -- } 
+    // -- sum += temp;  // accumulate temperature of each sensors
 
-    -- while(i==3){   //calculate the average Temperature
-    --     sum = sum / (3 - flag);  
+    // -- while(i==3){   //calculate the average Temperature
+    // --     sum = sum / (3 - flag);  
         
-    --     var num = new Number(sum);
-    --     io.emit("chat message", "Average Temperature: " + num.toFixed(2).toString());  //keep two digits of the average temp
-    --     i=0;
-    --     sum = 0.00;
-    -- }
-    -- i++;
+    // --     var num = new Number(sum);
+    // --     io.emit("chat message", "Average Temperature: " + num.toFixed(2).toString());  //keep two digits of the average temp
+    // --     i=0;
+    // --     sum = 0.00;
+    // -- }
+    // -- i++;
   });
 });
