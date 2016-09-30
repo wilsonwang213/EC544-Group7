@@ -12,6 +12,35 @@ f[0] = 1;
 f[1] = 1;
 f[2] = 1;
 
+function getDateTime() {
+  //get the time and date, will be added to
+    var now     = new Date(); 
+    var year    = now.getFullYear();
+    var month   = now.getMonth()+1; 
+    var day     = now.getDate();
+    var hour    = now.getHours();
+    var minute  = now.getMinutes();
+    var second  = now.getSeconds(); 
+    //correct the numbers to two digits
+    if(month.toString().length == 1) {
+        var month = '0'+month;
+    }
+    if(day.toString().length == 1) {
+        var day = '0'+day;
+    }   
+    if(hour.toString().length == 1) {
+        var hour = '0'+hour;
+    }
+    if(minute.toString().length == 1) {
+        var minute = '0'+minute;
+    }
+    if(second.toString().length == 1) {
+        var second = '0'+second;
+    }   
+    var dateTime = month+ "/" + day + " " + hour+':'+minute+':'+second;   
+     return dateTime;
+}
+
 
 var portName = process.argv[2],
 portConfig = {
@@ -47,6 +76,8 @@ sp.on("open", function () {
     console.log('data received: ' + data);  //capture the messgae in serialport
     var temp = new Number((parseFloat)(data));
     var index = parseInt(temp/100);
+    var timenow = getDateTime();
+    
     if (f[index]==0)
     {
     	var cnt = 0;
@@ -60,7 +91,7 @@ sp.on("open", function () {
     		}
     	}
     	sum/=cnt;
-    	io.emit("chat message", "Average Temperature:" + sum.toFixed(2).toString());
+    	io.emit("chat message", "Average Temperature:" + sum.toFixed(2).toString() + "  Time" + timenow);
  		for (var i=0; i<3; i++)
  		{
  			f[i] = 1;
