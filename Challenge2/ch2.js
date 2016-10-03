@@ -110,7 +110,7 @@ var sp;
 sp = new SerialPort.SerialPort(portName, portConfig);
 
 app.get('/', function(req, res){
-    res.sendfile('challenge2.html');
+    res.sendfile('index.html');
 });
 
 app.get('/', function(req, res){
