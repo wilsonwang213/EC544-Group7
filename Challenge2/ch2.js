@@ -30,7 +30,44 @@ function getDateTime() {
     return dateTime;
 }
 
+function getDate() {
+    //get the time and date, will be added to
+    var now     = new Date();
+    var year    = now.getFullYear();
+    var month   = now.getMonth()+1;
+    var day     = now.getDate();
+    //correct the numbers to two digits
+    if(month.toString().length == 1) {
+        var month = '0'+month;
+    }
+    if(day.toString().length == 1) {
+        var day = '0'+day;
+    }
 
+    var dateTime = month+ " " + day;
+    return dateTime;
+}
+
+function getSecond() {
+    //get the time and date, will be added to
+    var now     = new Date();
+    var hour    = now.getHours();
+    var minute  = now.getMinutes();
+    var second  = now.getSeconds();
+    //correct the numbers to two digits
+
+    if(hour.toString().length == 1) {
+        var hour = '0'+hour;
+    }
+    if(minute.toString().length == 1) {
+        var minute = '0'+minute;
+    }
+    if(second.toString().length == 1) {
+        var second = '0'+second;
+    }
+    var dateTime = hour+' '+minute+' '+second;
+    return dateTime;
+}
 
 var app = require('express')();
 var express=require('express');
@@ -54,6 +91,9 @@ var i = 1;
 var excStr = "temperature exception!";
 var f = new Array(3);
 var tmp = new Array(3);
+tmp[0] = 0.00;
+tmp[1] = 0.00;
+tmp[2] = 0.00;
 f[0] = 1;
 f[1] = 1;
 f[2] = 1;
@@ -98,14 +138,15 @@ sp.on("open", function () {
         var timenow = getDateTime();
         var temp = new Number((parseFloat)(data));
         var index = parseInt(temp/100);
-
-        if (f[index]==0)
+        var datenow = getDate();
+        var secondnow = getSecond();
+        if (f[index]==0.00)
         {
             var cnt = 0;
-            var sum = 0;
+            var sum = 0.00;
             for (var i=0; i<3; i++)
             {
-                if (tmp[i]!=1)
+                if (tmp[i]!=0.00)
                 {
                     cnt++;
                     sum+=tmp[i];
@@ -121,14 +162,15 @@ sp.on("open", function () {
 
 
 	     var temp1 = {
-            timenow :timenow,
+            datenow :datenow,
+            secondnow:secondnow,
             temperature1:tmp[0],
             temperature2:tmp[1],
             temperature3:tmp[2],
             average:sum
             };
 
-        connection.query('insert into temperature5 set ?',temp1, function(err, result) {
+        connection.query('insert into temperature6 set ?',temp1, function(err, result) {
             if(err){
                 console.error(err);
                 return;
@@ -138,10 +180,10 @@ sp.on("open", function () {
             for (var i=0; i<3; i++)
             {
                 f[i] = 1;
-                tmp[i] = 0;
+                tmp[i] = 0.00;
             }
         }
-        tmp[index] = temp%100;
+        tmp[index] = temp%100 + 0.00;
 //        io.emit("chat message", (index+1) + "Temperature:" + tmp[index]);
         f[index]--;
 
