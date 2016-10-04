@@ -1,7 +1,7 @@
 <?php
 $q = $_GET['q'];
 
-$con = mysqli_connect('127.0.0.1','root','tian9415','ec544');
+$con = mysqli_connect('192.168.1.102','root','19940213','ec544');
 if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
