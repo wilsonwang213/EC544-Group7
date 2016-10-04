@@ -38,7 +38,7 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
     host     : '127.0.0.1',
     user     : 'root',
-    password : 'tian9415',
+    password : '19940213',
     database : 'ec544'
 });
 connection.connect();
@@ -73,7 +73,7 @@ sp = new SerialPort.SerialPort(portName, portConfig);
 app.use('/', express.static(__dirname + '/'));
 
 app.get('/', function(req, res){
-    res.sendfile('index.html');
+    res.sendfile('realtime.html');
 });
 
 
