@@ -14,7 +14,7 @@
         var newData1 = 0;
         var newData2 = 0;
         // var newData3 = 0;
-
+        // document.getElementById("fuck").innerHTML = newData0;
         var graphObj = {
             "background-color": "none",
             "type": "bar",
@@ -151,7 +151,7 @@
                         "transport": "js",
                         "url": "feed()",
                         "max-ticks": 50,
-                        "interval": 200,
+                        "interval": 5000,
                         "curtain":{  //Message before having data
                             "text": "The data is loading...",
                             "color": "red",
@@ -457,7 +457,7 @@
 <div class="content">
     <div id="top">
         <div id="icons">
-            <div id="icons"><a href="challenge2.html"> <button type="button">Real-time Temperature</button> </a><a href="historical2.html"> <button type="button">Historical Data</button> </a> </div>
+            <div id="icons"><a href="challenge2.html"> <button type="button">Real-time Temperature</button> </a><a href="historical.html"> <button type="button">Historical Data</button> </a> </div>
         </div>
         <h1 align="center">Realtime Temperature Data</h1>
         <h2 align="center">Group 7</h2>
@@ -484,6 +484,9 @@
 
             $('#messages').append($('<li>').text(msg));
         });
+
+
+
     </script>
     </head>
 
@@ -492,7 +495,10 @@
     <div>
         <div style="margin: auto; float: left;"  id = 'chartDiv'></div>
         <div style="margin: auto; float: right;" id = 'avgTemp'></div>
+        <!-- <div id="fuck" style="margin: auto; float: right;"> </div> -->
     </div>
+
+
 
 </div>
 
