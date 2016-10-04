@@ -73,7 +73,7 @@ sp = new SerialPort.SerialPort(portName, portConfig);
 app.use('/', express.static(__dirname + '/'));
 
 app.get('/', function(req, res){
-    res.sendfile('realtime.html');
+    res.sendfile('index.html');
 });
 
 
@@ -88,8 +88,8 @@ io.on('connection', function(socket){
     });
 });
 
-http.listen(3000, function(){
-    console.log('listening on *:3000');
+http.listen(80, function(){
+    console.log('listening on *:80');
 });
 
 sp.on("open", function () {
