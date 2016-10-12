@@ -1,181 +1,249 @@
 <!doctype html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>LED_Blink</title>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
-  <script src="jquery/iphone-style-checkboxes.js" type="text/javascript" charset="utf-8"></script>
-  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-  <link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8" />
-<style type="text/css">
-  	div.Total {
-		    position: absolute;
-		    top: 5%;
-		    left: 20%;
-		    width: 36%;
-		    height: 13%;
-        background-color:rgba(0,255,255,255)
-        
-		}
-		div.LED1 {
-		    position: absolute;
-		    top: 20%;
-		    left: 20%;
-		    width: 36%;
-		    height: 35%;
-        background-color:rgba(0,255,0,0.3)
-		}
-		div.LED2 {
-		    position: absolute;
-		    top: 20%;
-		    left: 63%;
-		    width: 36%;
-		    height: 35%;
-        background-color:rgba(255,0,0,0.3)
-		}
-		div.LED3 {
-		    position: absolute;
-		    top: 60%;
-		    left: 20%;
-		    width: 36%;
-		    height: 35%;
-        background-color:rgba(0,0,255,0.3)
-		}
-		div.LED4 {
-		    position: absolute;
-		    top: 60%;
-		    left: 63%;
-		    width: 36%;
-		    height: 35%;
-        background-color:rgba(0,0,0,0.3)
-		}
+    <title>Remote LED Control WebPage</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
+    <script src="jquery/iphone-style-checkboxes.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+    <link rel="stylesheet" type="text/css"  media="screen" />
+    <style type="text/css">
+        div.Total {
+            position: absolute;
+            top: 53%;
+            left: 55%;
+            width: 10%;
+            height: 10%;
+            background-color:black;
+            font-family: Arial;
+            color: white;
+            border-radius:9px;
 
-	</style>
+        }
+        div.LED1 {
+            position: absolute;
+            top: 18%;
+            left: 30%;
+            width: 25%;
+            height: 35%;
+            background-color:black;
+            border-radius:9px;
+        }
+        div.LED2 {
+            position: absolute;
+            top: 18%;
+            left: 65%;
+            width: 25%;
+            height: 35%;
+            background-color:black;
+            border-radius:9px;
+        }
+        div.LED3 {
+            position: absolute;
+            top: 63%;
+            left: 30%;
+            width: 25%;
+            height: 35%;
+            background-color:black;
+            border-radius:9px;
+        }
+        div.LED4{
+            position: absolute;
+            top: 63%;
+            left: 65%;
+            width: 25%;
+            height: 35%;
+            background-color:black;
+            border-radius:9px;
+        }
+
+    </style>
 </head>
-<body >
-    <div style=" background:url(bulboff.gif);" ><h3> The status of LED</h3></div>
+<!-- <script>var bStates = [0,0,0,0];</script> -->
+<body onLoad="getStat()">
+<div style="background-color:white; height:60px; font-size:12px; font-family:Arial, Helvetica, sans-serif; color:gray">
+    <h1 align="middle">Challenge3</h1>
+</div>
+<div style="background-color:white; height:90px; font-size:8px; font-family:Arial, Helvetica, sans-serif; color:gray">
+
+    <h1 align="middle">Remote Access to a Wireless Sensor Network</h1>
+    <h1 align="middle">Group 7</h1>
+</div>
+
+<div style="font-size:15px; color: gray; font-family: Arial "><h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The status of LED</h3></div>
+    <!-- <a id = "fuck"></a> -->
     <div class="Total">
-	<h3 align="left" 	style="font-size:28px">Main Switch</h3>
-	<form  id="s1" action="">
-  <button  style="position: absolute; top:35%; left: 60%" align ="top">Turn on</button>
-	
-  </form>
-  <form id="e1" action="">
-  <button  style="position: absolute; top:35%; left: 80%" align ="top">Turn off</button>
+        <h3 align="left" 	style="font-size:2.2vh">&nbsp;&nbsp;&nbsp;Main Switch</h3>
+    <form  id="s1" action="">
+        <button onClick = "onBulbtogether()" style="display:block; font-weight:bold;font-size:1.8vh;text-align: center;position:absolute;top:60%; left: 10%"  >on</button>
+    </form>
+    <!-- // switch on all leds. -->
 
-</form></div>
-  <div class="LED1">
-	<h3 align="middle" 	style="font-size:28px">LED1</h3>
-	<form id="f1" action="">
-  <button  style="height: 40px; width: 70px; position: absolute; top:55%; left: 18%; font-size:20px;" align ="top">on</button>
-	
-  </form>
-  <form id="n1" action="">
-  <button  style="height: 40px; width: 70px; position: absolute; top:55%; left: 60%; font-size:20px;" align ="top">off</button>
+    <form id="e1" action="">
+        <button onClick = "offBulbtogether()" style="display:block; font-weight:bold;font-size:1.8vh;text-align: center;position:absolute;top:60%; right: 10%"  >off</button>
+    </form>
+    <!-- switch off all leds. -->
+    </div>
 
-</form></div>
+    <div class="LED1">
+        <h3 align="middle" 	style="font-size:3.0vh; margin-top:3%; color:white">LED #1</h3>
+        <img id="myBulb1" src="bulbon.png" height="55%" style=" position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0">
+    <form id="f1" action="">
+        <button onClick="onBulb('myBulb1', 1)" style="display:block; font-weight:bold;font-size:2.3vh; text-align: center; position: absolute; top:85%; left: 20%" align ="top">on</button>
+    </form>
+    <!-- led1 on. -->
+    <form id="n1" action="">
+        <button onClick="offBulb('myBulb1', 1)" style="display:block; font-weight:bold;font-size:2.3vh; text-align: center; position: absolute; top:85%; right: 20%" align ="top">off</button>
+    </form>
+     <!-- //led1 off. -->
+    </div>
 
-<div class="LED2">
-	<h3 align="middle" 	style="font-size:28px">LED2</h3>
-  <form id="f2" action="">
-  <button  style="height: 40px; width: 70px; position: absolute; top:55%; left: 18%; font-size:20px;" align ="top">on</button>
-  </form>
-  <form id="n2" action="">
-	<button  style="height: 40px; width: 70px; position: absolute; top:55%; left: 60%; font-size:20px;" align ="top">off</button>
-	</form>
-</div>
 
-<div class="LED3">
-	<h3 align="middle" 	style="font-size:28px">LED3</h3>
-	<form id="f3" action="">
-  <button  style="height: 40px; width: 70px; position: absolute; top:55%; left: 18%; font-size:20px;" align ="top">on</button>	
-  </form>
-  <form id="n3" action="">
-  <button  style="height: 40px; width: 70px; position: absolute; top:55%; left: 60%; font-size:20px;" align ="top">off</button>
-  </form>
-</div>
+    <div class="LED2">
+        <h3 align="middle" 	style="font-size:3.0vh; margin-top:3%; color:white">LED #2</h3>
+        <img id="myBulb2" src="bulbon.png" height="55%" style=" position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0">
+    <form id="f2" action="">
+        <button onClick="onBulb('myBulb2', 2)" style="display:block; font-weight:bold; font-size:2.3vh; text-align: center; position: absolute; top:85%; left: 20%" align ="top">on</button>
+    </form>
+    <!-- // led2 on. -->
+    <form id="n2" action="">
+        <button onClick="offBulb('myBulb2', 2)" style="display:block; font-weight:bold;font-size:2.3vh; text-align: center; position: absolute; top:85%; right: 20%" align ="top">off</button>
+    </form>
+    </div>
 
-<div class="LED4">
-	<h3 align="middle" 	style="font-size:28px">LED4</h3>
-	<form id="f4" action="">
-  <button  style="height: 40px; width: 70px; position: absolute; top:55%; left: 18%; font-size:20px;" align ="top">on</button>
-	</form>
-  <form id="n4" action="">
-  <button style=" height: 40px; width: 70px; position: absolute;top:55%; left: 60%; font-size:20px;" align ="top">off</button>
+    <div class="LED3">
+        <h3 align="middle" 	style="font-size:3.0vh; margin-top:3%; color:white">LED #3</h3>
+        <img id="myBulb3" src="bulbon.png" height="55%" style=" position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0">
+<form id="f3" action="">
+        <button onClick="onBulb('myBulb3', 3)" style="display:block; font-weight:bold; font-size:2.3vh; text-align: center; position: absolute; top:85%; left: 20%" align ="top">on</button>
 </form>
+<form id="n3" action="">
+        <button onClick="offBulb('myBulb3', 3)" style="display:block; font-weight:bold;font-size:2.3vh; text-align: center; position: absolute; top:85%; right: 20%" align ="top">off</button>
+</form>
+    </div>
+
+    <div class="LED4">
+        <h3 align="middle" 	style="font-size:3.0vh; margin-top:3%; color:white">LED #4</h3>
+        <img id="myBulb4" onload="initBulb('myBulb4',3)" src="bulbon.png" height="55%" style=" position: absolute; margin: auto; top: 0; left: 0; right: 0; bottom: 0">
+<form id="f4" action="">
+        <button onClick="onBulb('myBulb4', 4)" style="display:block; font-weight:bold; font-size:2.3vh; text-align: center; position: absolute; top:85%; left: 20%" align ="top">on</button>
+</form>
+<form id="n4" action="">
+        <button onClick="offBulb('myBulb4', 4)" style="display:block; font-weight:bold;font-size:2.3vh; text-align: center; position: absolute; top:85%; right: 20%" align ="top">off</button>
+        <!-- <button onClick="window.alert(bStates)" style="display:block; font-weight:bold;font-size:2.3vh; text-align: center; position: absolute; top:85%; right: 20%" align ="top">hey</button> -->
+</form>
+    </div>
+
+
 </div>
 
-
-   <ul id="messages"></ul>
-    <script src="/socket.io/socket.io.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 <script>
-  var socket = io();
-  $('#f1').submit(function(){
-    socket.emit('chat message', "1");
-    return false;
-  });
+    // send data to arduino.
+    var socket = io();
+    $('#f1').submit(function(){
+        socket.emit('chat message', "1");
+        return false;
+    });
     $('#f2').submit(function(){
-    socket.emit('chat message', "2");
-    return false;
-  });
+        socket.emit('chat message', "2");
+        return false;
+    });
     $('#f3').submit(function(){
-    socket.emit('chat message', "3");
-    return false;
-  });
+        socket.emit('chat message', "3");
+        return false;
+    });
     $('#f4').submit(function(){
-    socket.emit('chat message', "4");
-    return false;
-  });
+        socket.emit('chat message', "4");
+        return false;
+    });
     $('#n1').submit(function(){
-    socket.emit('chat message', "5");
-    return false;
-  });
+        socket.emit('chat message', "5");
+        return false;
+    });
     $('#n2').submit(function(){
-    socket.emit('chat message', "6");
-    return false;
-  });
+        socket.emit('chat message', "6");
+        return false;
+    });
     $('#n3').submit(function(){
-    socket.emit('chat message', "7");
-    return false;
-  });
+        socket.emit('chat message', "7");
+        return false;
+    });
     $('#n4').submit(function(){
-    socket.emit('chat message', "8");
-    return false;
-  });   
-   $('#s1').submit(function(){
-    socket.emit('chat message', "o");
-    return false;
-  });
+        socket.emit('chat message', "8");
+        return false;
+    });
+    $('#s1').submit(function(){
+        socket.emit('chat message', "o");
+        return false;
+    });
     $('#e1').submit(function(){
-    socket.emit('chat message', "f");
-    return false;
-  });
-  
-  socket.on('chat message', function(msg){
-    $('#messages').append($('<li>').text(msg));
-  });
-</script>
-<script>
-	function pic(bulb,num){
-		var image = document.getElementById(bulb);
-		if(image.src = "Style/bulboff.gif"){
-			image.src = "Style/bulbon.gif";
-			bStates[num-1] = 1;
-			socket.emit('bStates', bStates.toString().replace(/,/g, ''));
-		}
-	}
+        socket.emit('chat message', "f");
+        return false;
+    });
 
-	function offBulb (bulb,num) {
-		var image = document.getElementById(bulb);
-		if(image.src = "Style/bulbon.gif"){
-			image.src = "Style/bulboff.gif";
-			bStates[num-1] = 0;
-			socket.emit('bStates', bStates.toString().replace(/,/g, ''));
-		}
-	}
-  </script>
+
+
+</script>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script>
+    // receive data from arduino.
+    var bStates = ["0","0","0","0"];
+    socket.on('chat message', function(data){
+        bStates = data.split(",");
+        window.alert(bStates[0]);
+        getStat();
+    });
+    // var socket = io();
+    // socket.on('chat message', function(data){
+    //     var i = parseInt(data.charAt(3));
+    //     if (data.charAt(9) == 'f') bStates[i-1] = 0;
+    //     else if(data.charAt(9) == 'n') bState[i-1] = 1;
+    //
+    //     getStat();
+    // });
+
+
+    function getStat(){
+        var image1 = document.getElementById('myBulb1');
+        var image2 = document.getElementById('myBulb2');
+        var image3 = document.getElementById('myBulb3');
+        var image4 = document.getElementById('myBulb4');
+        if(bStates[0] == "0"){image1.src = "bulboff.png";} else {image1.src = "bulbon.png";}
+        if(bStates[1] == "0"){image2.src = "bulboff.png";} else {image2.src = "bulbon.png";}
+        if(bStates[2] == "0"){image3.src = "bulboff.png";} else {image3.src = "bulbon.png";}
+        if(bStates[3] == "0"){image4.src = "bulboff.png";} else {image4.src = "bulbon.png";}
+    }
+    function onBulb(bulb,num){
+        var image = document.getElementById(bulb);
+        if(bState[num-1] == "0"){
+            image.src = "bulbon.png";
+            bStates[num-1] = "1";
+
+        }
+    }
+    function offBulb (bulb,num) {
+        var image = document.getElementById(bulb);
+        if(bState[num-1] == "1"){
+            image.src = "bulboff.png";
+            bStates[num-1] = "0";
+
+        }
+    }
+    function onBulbtogether (){
+        onBulb('myBulb1',1);
+        onBulb('myBulb2',2);
+        onBulb('myBulb3',3);
+        onBulb('myBulb4',4);
+    }
+    function offBulbtogether (){
+        offBulb('myBulb1',1);
+        offBulb('myBulb2',2);
+        offBulb('myBulb3',3);
+        offBulb('myBulb4',4);
+    }
+</script>
 </body>
 </html>
-
-
-
