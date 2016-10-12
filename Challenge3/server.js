@@ -2,6 +2,7 @@ var SerialPort = require("serialport");
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var express = require('express');
 
 var portName = process.argv[2],
 portConfig = {
@@ -12,9 +13,16 @@ portConfig = {
 var sp;
 
 sp = new SerialPort.SerialPort(portName, portConfig);
+// app.use(express.static('public'));
+
+app.use('/', express.static(__dirname + '/'));
 
 app.get('/', function(req, res){
   res.sendfile('LED_Blink.html');
+});
+
+app.get('/', function(req, res){
+  res.sendfile('style.css');
 });
 
 io.on('connection', function(socket){
@@ -22,7 +30,7 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
   });
   socket.on('chat message', function(msg){
-    // io.emit('chat message', msg);
+    io.emit('chat message', msg);
     sp.write(msg + "\n");
   });
 });
@@ -35,7 +43,6 @@ sp.on("open", function () {
   console.log('open');
   sp.on('data', function(data) {
     console.log('data received: ' + data);
-    io.emit("chat message",  data);
+    io.emit("chat message",data);
   });
 });
-
