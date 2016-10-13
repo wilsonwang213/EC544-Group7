@@ -60,7 +60,7 @@
     </style>
 </head>
 
-<body onLoad="getStat()">
+<body onLoad="reset();">
 <div style="background-color:white; height:60px; font-size:12px; font-family:Arial, Helvetica, sans-serif; color:gray">
     <h1 align="middle">Challenge3</h1>
 </div>
@@ -196,41 +196,17 @@
     // receive data from arduino.
     var bStates = [0,0,0,0];
 
-    // function pageLoad() {
-    //
-    //     socket.on('chat message', function(data) {
-    //         window.alert("sss");
-    //         for(var i = 0; i < 4; i++) {
-    //             var j = parseInt(data.charAt(3));
-    //             if(data.charAt(9) == 'f') bStates[i-1] = 0;
-    //             else bState[i-1] = 1;
-    //             getStat();
-    //         }
-    //     })
-    // }
-    // pageLoad();
-    // socket.on('chat message', function(data){
-    //     bStates = data.split(",");
-    //     // window.alert(bStates[0]);
-    //     getStat();
-    // });
-    // var socket = io();
-
     socket.on('chat message', function(data){
         var i = parseInt(data.charAt(3));
         if (data.charAt(9) == 'f') bStates[i-1] = 0;
         else if(data.charAt(9) == 'n') bStates[i-1] = 1;
         getStat();
-
     });
-        // window.alert(bStates);
-    // function changeState() {
-    //     socket.on('chat message', function(data){
-    //         var i = parseInt(data.charAt(3));
-    //         if (data.charAt(9) == 'f') bStates[i-1] = 0;
-    //         else if(data.charAt(9) == 'n') bStates[i-1] = 1;
-    //     });
-    // }
+
+    function reset() {
+        socket.emit('chat message', "f");
+        getStat();
+    }
 
     function getStat(){
         var image1 = document.getElementById('myBulb1');
@@ -241,6 +217,7 @@
         if(bStates[1] == 0){image2.src = "bulboff.png";} else {image2.src = "bulbon.png";}
         if(bStates[2] == 0){image3.src = "bulboff.png";} else {image3.src = "bulbon.png";}
         if(bStates[3] == 0){image4.src = "bulboff.png";} else {image4.src = "bulbon.png";}
+        // window.alert(bStates);
     }
     function onBulb(bulb,num){
         var image = document.getElementById(bulb);
