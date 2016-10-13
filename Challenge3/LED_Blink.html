@@ -5,7 +5,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
     <script src="jquery/iphone-style-checkboxes.js" type="text/javascript" charset="utf-8"></script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+    <link rel="stylesheet" type="text/css"  href="style.css" media="screen" />
     <link rel="stylesheet" type="text/css"  media="screen" />
     <style type="text/css">
         div.Total {
@@ -59,7 +59,7 @@
 
     </style>
 </head>
-<!-- <script>var bStates = [0,0,0,0];</script> -->
+
 <body onLoad="getStat()">
 <div style="background-color:white; height:60px; font-size:12px; font-family:Arial, Helvetica, sans-serif; color:gray">
     <h1 align="middle">Challenge3</h1>
@@ -67,11 +67,11 @@
 <div style="background-color:white; height:90px; font-size:8px; font-family:Arial, Helvetica, sans-serif; color:gray">
 
     <h1 align="middle">Remote Access to a Wireless Sensor Network</h1>
-    <h1 align="middle">Group 7</h1>
+
 </div>
 
-<div style="font-size:15px; color: gray; font-family: Arial "><h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The status of LED</h3></div>
-    <!-- <a id = "fuck"></a> -->
+<div style="font-size:15px; color: gray; font-family: Arial "><h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The status of LED</h3></div>
+
     <div class="Total">
         <h3 align="left" 	style="font-size:2.2vh">&nbsp;&nbsp;&nbsp;Main Switch</h3>
     <form  id="s1" action="">
@@ -137,6 +137,7 @@
 
 </div>
 
+<ul id="message" style="margin-left:10%; font-family:Arial; font-size:16px"></ul>
 <script src="/socket.io/socket.io.js"></script>
 <script>
     // send data to arduino.
@@ -181,6 +182,9 @@
         socket.emit('chat message', "f");
         return false;
     });
+    socket.on('chat message',function(msg){
+        $('#message').append($('<li>').text(msg));
+    })
 
 
 
@@ -190,46 +194,64 @@
 
 <script>
     // receive data from arduino.
-    var bStates = ["0","0","0","0"];
-    socket.on('chat message', function(data){
-        bStates = data.split(",");
-        window.alert(bStates[0]);
-        getStat();
-    });
-    // var socket = io();
-    // socket.on('chat message', function(data){
-    //     var i = parseInt(data.charAt(3));
-    //     if (data.charAt(9) == 'f') bStates[i-1] = 0;
-    //     else if(data.charAt(9) == 'n') bState[i-1] = 1;
+    var bStates = [0,0,0,0];
+
+    // function pageLoad() {
     //
+    //     socket.on('chat message', function(data) {
+    //         window.alert("sss");
+    //         for(var i = 0; i < 4; i++) {
+    //             var j = parseInt(data.charAt(3));
+    //             if(data.charAt(9) == 'f') bStates[i-1] = 0;
+    //             else bState[i-1] = 1;
+    //             getStat();
+    //         }
+    //     })
+    // }
+    // pageLoad();
+    // socket.on('chat message', function(data){
+    //     bStates = data.split(",");
+    //     // window.alert(bStates[0]);
     //     getStat();
     // });
+    // var socket = io();
 
+    socket.on('chat message', function(data){
+        var i = parseInt(data.charAt(3));
+        if (data.charAt(9) == 'f') bStates[i-1] = 0;
+        else if(data.charAt(9) == 'n') bStates[i-1] = 1;
+        getStat();
+
+    });
+        // window.alert(bStates);
+    // function changeState() {
+    //     socket.on('chat message', function(data){
+    //         var i = parseInt(data.charAt(3));
+    //         if (data.charAt(9) == 'f') bStates[i-1] = 0;
+    //         else if(data.charAt(9) == 'n') bStates[i-1] = 1;
+    //     });
+    // }
 
     function getStat(){
         var image1 = document.getElementById('myBulb1');
         var image2 = document.getElementById('myBulb2');
         var image3 = document.getElementById('myBulb3');
         var image4 = document.getElementById('myBulb4');
-        if(bStates[0] == "0"){image1.src = "bulboff.png";} else {image1.src = "bulbon.png";}
-        if(bStates[1] == "0"){image2.src = "bulboff.png";} else {image2.src = "bulbon.png";}
-        if(bStates[2] == "0"){image3.src = "bulboff.png";} else {image3.src = "bulbon.png";}
-        if(bStates[3] == "0"){image4.src = "bulboff.png";} else {image4.src = "bulbon.png";}
+        if(bStates[0] == 0){image1.src = "bulboff.png";} else {image1.src = "bulbon.png";}
+        if(bStates[1] == 0){image2.src = "bulboff.png";} else {image2.src = "bulbon.png";}
+        if(bStates[2] == 0){image3.src = "bulboff.png";} else {image3.src = "bulbon.png";}
+        if(bStates[3] == 0){image4.src = "bulboff.png";} else {image4.src = "bulbon.png";}
     }
     function onBulb(bulb,num){
         var image = document.getElementById(bulb);
-        if(bState[num-1] == "0"){
-            image.src = "bulbon.png";
-            bStates[num-1] = "1";
-
+        if(bStates[num-1] == 0){
+            getStat();
         }
     }
     function offBulb (bulb,num) {
         var image = document.getElementById(bulb);
-        if(bState[num-1] == "1"){
-            image.src = "bulboff.png";
-            bStates[num-1] = "0";
-
+        if(bStates[num-1] == 1){
+            getStat();
         }
     }
     function onBulbtogether (){
