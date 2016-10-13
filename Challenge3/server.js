@@ -21,16 +21,12 @@ app.get('/', function(req, res){
   res.sendfile('LED_Blink.html');
 });
 
-app.get('/', function(req, res){
-  res.sendfile('style.css');
-});
-
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('disconnect', function(){
   });
   socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+    // io.emit('chat message', msg);
     sp.write(msg + "\n");
   });
 });
