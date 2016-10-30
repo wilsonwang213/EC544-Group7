@@ -1,5 +1,40 @@
+#include <Time.h>
+#include <PID_v1.h>
+#include <Servo.h>
+#include<SoftwareSerial.h>
+
+Servo wheels; // servo for turning the wheels
+Servo esc; // not actually a servo, but controlled like one!
+SoftwareSerial XBee(2, 3); // RX, TX
+
+bool startup = true; // used to ensure startup only happens once
+int startupDelay = 1000; // time to pause at each calibration step
+double maxSpeedOffset = 45; // maximum speed magnitude, in servo 'degrees'
+double maxWheelOffset = 85; // maximum wheel turn magnitude, in servo 'degrees'
+
+time_t t = 0;
+int pinVal = 0;
+int WSpin = 13;
+int cmnd = 49; //Command to start/stop the car remotely
+
+int l_0,Fl_0 ;
+int l_1;
+int dist,Firstdist;
+double setPt, Input, Output;
+int Kp = 1.8;     // initial 2
+int Ki = 0.05;  // initial 0.05
+int Kd = 0.5;   // initial 0.5
+
+int inchesLast_1 = 0;
+int inchesLast_2 = 0;
+
+PID PIDleft(&Input, &Output, &setPt, Kp, Ki, Kd, DIRECT);
+
+
+
 unsigned long pulse_width;
 unsigned long pulse_width1;
+unsigned long pulse_width_difference;
 const int pwPin = 7;
 int arraysize = 9;
 int rangevalue[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -15,6 +50,23 @@ void setup()
   pinMode(4, OUTPUT); // Set pin 2 as trigger pin
   pinMode(5, INPUT); // Set pin 3 as monitor pin
   digitalWrite(4, LOW);//  
+
+  XBee.begin(9600);
+  wheels.attach(8); // initialize wheel servo to Digital IO Pin #8
+  esc.attach(9); // initialize ESC to Digital IO Pin #9
+  /*  If you're re-uploading code via USB while leaving the ESC powered on, 
+   *  you don't need to re-calibrate each time, and you can comment this part out.
+   */
+  calibrateESC();
+
+
+  //set initial 
+  setPt = 0;
+  PIDleft.SetOutputLimits(-10,10);
+  PIDleft.SetMode(AUTOMATIC);
+
+  esc.write(80);
+  wheels.write(270);
 }
 
 void loop()
@@ -47,9 +99,32 @@ void loop()
   Serial.print(modE);
   Serial.println();
 
+  if (modE<=30)
+  {
+    esc.write(90);
+  }
+  else
+  {
 
+    pulse_width_difference = pulse_width - pulse_width1;
+    Input = pulse_width_difference;
+    PIDleft.Compute();
+    wheels.write(270+Output);
+  }  
+  
 
   delay(1000); //Delay so we don't overload the serial port
+}
+
+/* Calibrate the ESC by sending a high signal, then a low, then middle.*/
+void calibrateESC(){
+    esc.write(180); // full backwards
+    delay(startupDelay);
+    esc.write(0); // full forwards
+    delay(startupDelay);
+    esc.write(90); // neutral
+    delay(startupDelay);
+    esc.write(90); // reset the ESC to neutral (non-moving) value
 }
 
 void isort(int *a, int n){
