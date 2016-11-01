@@ -1,5 +1,7 @@
 <!doctype html>
 <html>
+
+
   <head>
     <title>Socket.IO chat</title>
     <style>
@@ -11,17 +13,31 @@
       /*#messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }*/
+
+      .wrapper {
+    text-align: center;
+    }
+
+    .button {
+      position: absolute;
+      top: 50%;
+    }
     </style>
   </head>
   <body>
     <!-- <ul id="messages"></ul> -->
-    <div >
+
+
+    <div class="wrapper">
+    <br/><br/><br/><br/><br/>
+    <h1> Remote Control</h1>
+    <br/><br/><br/>
     <form width='9%' id="start" action="">
-      <button >start</button>
+      <button class="wrapper">start</button>
   </form></div>
   <li>  </li>
-
-  <div>
+  <br/><br/><br/><br/><br/>
+  <div class="wrapper">
     <form width='9%' id="stop" action="">
       <button >stop</button>
   </form></div>
