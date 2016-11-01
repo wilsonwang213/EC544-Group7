@@ -25,7 +25,7 @@ void loop() {
         if(flag == 0) {
             val = in;
             tst = millis();
-             
+              
             flag = 1;
         }
         else {
