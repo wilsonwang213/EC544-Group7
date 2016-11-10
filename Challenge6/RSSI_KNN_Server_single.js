@@ -7,10 +7,10 @@ var fs = require('fs');
 var writer = csvWriter();
 writer.pipe(fs.createWriteStream('out.csv'));
 
-var i = 1;
-var j = 1;
-var m = 1;
-var n = 1;
+// var i = 1;
+// var j = 1;
+// var m = 1;
+// var n = 1;
 var answer = 1;
 
 var C = xbee_api.constants;
@@ -90,36 +90,42 @@ var trainingSet =
 
 
 var predictions = [
- 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
- 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
- 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
- 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
- 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
- 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
- 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
- 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
- 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
- 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
- 11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
- 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
- 13, 13, 13, 13, 13, 13, 13, 13, 13, 13,
- 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
- 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
- 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
- 17, 17, 17, 17, 17, 17, 17, 17, 17, 17,
- 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
- 19, 19, 19, 19, 19, 19, 19, 19, 19, 19,
- 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
- 21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
- 22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
- 23, 23, 23, 23, 23, 23, 23, 23, 23, 23];
+ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+ 13,14,15,16,17,18,19,20,21,22,23,24];
+//  2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+//  3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+//  4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+//  5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+//  6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+//  7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+//  8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+//  9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+//  10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+//  11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
+//  12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+//  13, 13, 13, 13, 13, 13, 13, 13, 13, 13,
+//  14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
+//  15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+//  16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+//  17, 17, 17, 17, 17, 17, 17, 17, 17, 17,
+//  18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+//  19, 19, 19, 19, 19, 19, 19, 19, 19, 19,
+//  20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
+//  21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+//  22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+//  23, 23, 23, 23, 23, 23, 23, 23, 23, 23];
  //24, 24, 24, 24, 24, 24, 24, 24, 24, 24];
 
 knn.train(trainingSet, predictions);
 
 knn.k = 1;
 
+var sum = 0;
 var dataset = [[0,0,0,0]];
+var dataset1 = [[0,0,0,0]];
+var dataset2 = [[0,0,0,0]];
+var dataset3 = [[0,0,0,0]];
+var datasetavg = [[0,0,0,0]];
 
 //Note that with the XBeeAPI parser, the serialport's "data" event will not fire when messages are received!
 portConfig = {
@@ -207,7 +213,46 @@ XBeeAPI.on("frame_object", function(frame) {
       n++;
     }
 
-    answer = knn.predict(dataset);
+    sum++;
+    if (sum<3)
+    {
+    	switch(sum)
+    	{
+    		case 1:
+    			dataset1 = dataset;
+    			break;
+    		case 2:
+    			dataset2 = dataset1;
+    			dataset1 = dataset;
+    			break; 
+    	}
+    	answer = knn.predict(dataset);
+    	//io.emit('location', ans);
+    	//console.log("answer: " + ans);
+	}
+	else
+	{
+		dataset3 = dataset2;
+		dataset2 = dataset1;
+		dataset1 = dataset;
+		var d1 = 0;
+		var d2 = 0;
+		var d3 = 0;
+		var d4 = 0;
+		d1 = dataset1[0][0] + dataset2[0][0] + dataset3[0][0];
+		d2 = dataset1[0][1] + dataset2[0][1] + dataset3[0][1];
+		d3 = dataset1[0][2] + dataset2[0][2] + dataset3[0][2];
+		d4 = dataset1[0][3] + dataset2[0][3] + dataset3[0][3];
+		datasetavg[0][0] = d1;
+		datasetavg[0][1] = d2;
+		datasetavg[0][2] = d3;
+		datasetavg[0][3] = d4;		
+		answer = knn.predict(datasetavg);
+    //io.emit('location', ans);
+    //console.log("answer: " + ans);
+	}
+    
+    //answer = knn.predict(dataset);
     // io.emit('location', answer);
     // console.log("answer: " + answer);
   }
