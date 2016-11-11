@@ -7,7 +7,7 @@ var fs = require('fs');
 var writer = csvWriter();
 writer.pipe(fs.createWriteStream('out.csv'));
 
-// var i = 1;
+var i = 0;
 // var j = 1;
 // var m = 1;
 // var n = 1;
@@ -167,7 +167,7 @@ var requestRSSI = function(){
     //console.log("dataset: " + dataset);
     console.log("answer: " + answer);
   //}
-  writer.write({start: "START", Beacon:"", data: ""});
+  writer.write({start: "DATA", Beacon1:"", Beacon2:"", Beacon3:"", Beacon4:""});
 }
 
 sp.on("open", function () {
@@ -184,7 +184,6 @@ XBeeAPI.on("frame_object", function(frame) {
 
       dataset[0][0] = frame.data[0];
       //console.log("Beacon 1 : " + dataset[0][0]);
-      writer.write({start: "", Beacon:"1", data: dataset[0][0]});
       i++;
 
     }
@@ -193,25 +192,28 @@ XBeeAPI.on("frame_object", function(frame) {
 
       dataset[0][1] = frame.data[0];
       //console.log("Beacon 2 : " + dataset[0][1]);
-      writer.write({Beacon:"2", data: dataset[0][1]});
-      j++;
+      i++;
     }
     if(frame.data[1] == 3)
     {
 
       dataset[0][2] = frame.data[0];
       //console.log("Beacon 3 : " + dataset[0][2]);
-      writer.write({Beacon:"3", data: dataset[0][2]});
-      m++;
+      i++;
     }
     if(frame.data[1] == 4)
     {
 
       dataset[0][3] = frame.data[0];
       //console.log("Beacon 4 : " + dataset[0][3]);
-      writer.write({Beacon:"4", data: dataset[0][3]});
-      n++;
+      i++;
     }
+
+    if(i == 4) {
+      write.write({Beacon1:dataset[0][0], Beacon2:dataset[0][1], Beacon3:dataset[0][2], Beacon4:dataset[0][3] })
+      i = 0;
+    }
+
 
     sum++;
     if (sum<3)
