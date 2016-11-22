@@ -1,10 +1,12 @@
 #include <XBee.h>
 #include <SoftwareSerial.h>
+
 #define PIN_BLUE_LED              6    // leader
 #define PIN_RED_LED               4    // infect
 #define PIN_GREEN_LED             5    // clear
-#define PIN_BUTTON                9     // infection toggle
+#define PIN_BUTTON                9    // infection toggle
 
+//set message information 
 const uint8_t MSG_ELECTION = 0xB0,
               MSG_ACK = 0xB1,
               MSG_VICTORY = 0xB2,
@@ -33,6 +35,7 @@ int debounce_delay = 50;
 
 uint32_t immunityTimeout, infectionRebroadcastTimeout;
 
+//setup part
 void setup() {
   Serial.begin(9600);
   xbeeSerial.begin(9600);
@@ -46,31 +49,33 @@ void setup() {
   leaderHeartbeatTimeout = millis() + 6000;
 }
 
+
+//loop main function
 void loop() {
   int reading = digitalRead(PIN_BUTTON);
-  if (reading != last_button_state) debounce_timestamp = millis();
-  if (millis() - debounce_timestamp > debounce_delay) {
+  if (reading != last_button_state) debounce_timestamp = millis(); //store the button change time
+  if (millis() - debounce_timestamp > debounce_delay) {            //if the button change time larger than set_delay time
     if (reading != button_state) {
       button_state = reading;
       if (button_state == LOW) {
         if (leaderAddress64 == myAddress64) {
-          sendCommand(0x0000FFFF, (uint8_t*)&MSG_CLEAR, 1);
+          sendCommand(0x0000FFFF, (uint8_t*)&MSG_CLEAR, 1);        //send command to clear
           isInfected = false;
         }
-        else isInfected = true;
+        else isInfected = true;                                    //set itself infected
       }
     }
   }
-  last_button_state = reading;
+  last_button_state = reading;                                     //store the current button information
 
-  setLedStates();
-  readAndHandlePackets();
-  if (isElecting && millis() > electionTimeout) {
+  setLedStates();                                                  //set Led states according to the changes
+  readAndHandlePackets();                                          //read messages and set values 
+  if (isElecting && millis() > electionTimeout) {                  //if it is electing and larger than election timeout
     isElecting = false;
     leaderHeartbeatTimeout = millis() + 6000;
     betweenElectionTimeout = millis() + 5000;
-    if (isAcknowledged) beginElection();
-    else {
+    if (isAcknowledged) beginElection();                           //begin election
+    else {                                                         //if victory, send victory information and set leader address
       sendCommand(0x0000FFFF, (uint8_t*)&MSG_VICTORY, 1);
       leaderAddress64 = myAddress64;
     }
@@ -92,7 +97,7 @@ void loop() {
   }
 }
 
-void initLedPins(void) {
+void initLedPins(void) {                                                      //set the initial status of Led
   pinMode(PIN_BLUE_LED, OUTPUT);
   pinMode(PIN_RED_LED, OUTPUT);
   pinMode(PIN_GREEN_LED, OUTPUT);
@@ -102,7 +107,7 @@ void initLedPins(void) {
   digitalWrite(PIN_GREEN_LED, HIGH);
 }
 
-void setLedStates(void) {
+void setLedStates(void) {                                                     //set the Led status according to the value
   if (myAddress64 == leaderAddress64) {
     digitalWrite(PIN_BLUE_LED, HIGH);
     digitalWrite(PIN_GREEN_LED, LOW);
@@ -119,7 +124,7 @@ void setLedStates(void) {
   }
 }
 
-void getMyAddress64(void) {
+void getMyAddress64(void) {                                              //get the device's local address
   do {
     do    xbee.send(atRequest);
     while (!xbee.readPacket(5000) || xbee.getResponse().getApiId() != AT_COMMAND_RESPONSE);
