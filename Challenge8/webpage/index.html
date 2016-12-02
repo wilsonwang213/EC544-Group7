@@ -28,9 +28,12 @@ Released   : 20140322
 
  <script>
   var socket = io();
-  var location1 = [0,0];
-  var location2 = [0,0]; 
-  var location3 = [0,0];
+	  var locationArr = [["270px", "200px"], ["650px", "200px"],["1050px", "200px"],
+	  		["1050px", "450px"], ["1050px", "750px"],
+		  	["650px", "750px"], ["270px", "750px"], ["270px", "450px"]];
+  var location1 = ["",""];
+  var location2 = ["",""]; 
+  var location3 = ["",""];
 
 
   socket.on('location', function(location){
@@ -71,21 +74,10 @@ Released   : 20140322
 			   xbeeb2.style.left="880px";
 			   xbeeb2.style.top="250px";
             }
-			function moveRight(){
-				Red.style.left = 310 + Math.round(location1[0] * 2.95) + 'px';
-				Red.style.top = 459 + Math.round(location1[1] * 2.43) + 'px';
-				//Red.style.left = parseInt(Red.style.left) + 20 + 'px';
-				//Red.style.top = parseInt(Red.style.top) + 10 + 'px';
-				//Green.style.left = parseInt(Green.style.left) + 20 + 'px';
-				//Green.style.top = parseInt(Green.style.top) + 10 + 'px';
-				//Black.style.left = parseInt(Black.style.left) + 20 + 'px';
-				//Black.style.top = parseInt(Black.style.top) + 10 + 'px';
-			}
+			
 		
             window.onload = init;
-			setInterval(function(){
-			moveRight();
-			   }, 1000);
+			
 </script>
 </head>
 <body>
