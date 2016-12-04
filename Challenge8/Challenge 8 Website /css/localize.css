@@ -1,0 +1,354 @@
+div.Total {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 90%;
+    height: 80%;
+}
+div.Point {
+position:absolute;
+margin-top: 545px;
+margin-left: 10px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+
+
+}
+div.Point1 {
+  position:absolute;
+margin-left: 10px;
+margin-top:495px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+
+}
+    div.Point2 {
+      position:absolute;
+ margin-left: 10px;
+margin-top:445px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+
+}
+    div.Point3 {
+      position:absolute;
+  margin-left: 10px;
+  margin-top: 395px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+    div.Point4 {
+      position:absolute;
+  margin-left: 10px;
+margin-top:345px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+    div.Point5 {
+      position:absolute;
+      margin-top:295px;
+  margin-left: 10px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+    div.Point6 {
+      position:absolute;
+
+  margin-left: 10px;
+margin-top: 245px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+    div.Point7 {
+      position:absolute;
+      margin-top:195px;
+  margin-left: 10px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+    div.Point8 {
+      position:absolute;
+  margin-left: 10px;
+margin-top: 145px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point9 {
+  position:absolute;
+margin-left: 10px;
+margin-top: 95px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point10 {
+position:absolute;
+margin-left: 10px;
+margin-top: 45px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point11 {
+position:absolute;
+margin-left: 180px;
+margin-top: 35px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point12 {
+position:absolute;
+margin-left: 340px;
+margin-top: 35px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point13 {
+position:absolute;
+margin-left: 500px;
+margin-top: 35px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point14 {
+position:absolute;
+margin-left: 660px;
+margin-top: 37px;
+/*margin-top: 230px; 193*/
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point15 {
+position:absolute;
+margin-left: 660px;
+margin-top: 77px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point16 {
+position:absolute;
+margin-left: 660px;
+margin-top: 117px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point17 {
+position:absolute;
+margin-left: 660px;
+margin-top: 157px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point18 {
+position:absolute;
+margin-left: 660px;
+margin-top: 197px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point19 {
+position:absolute;
+margin-left: 660px;
+margin-top: 237px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point20 {
+position:absolute;
+margin-left: 660px;
+margin-top: 277px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point21 {
+position:absolute;
+margin-left: 660px;
+margin-top: 317px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point22 {
+position:absolute;
+margin-left: 660px;
+margin-top: 357px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point23 {
+position:absolute;
+margin-left: 660px;
+margin-top: 397px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point24 {
+position:absolute;
+margin-left: 660px;
+margin-top: 437px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point25 {
+position:absolute;
+margin-left: 660px;
+margin-top: 477px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point26 {
+position:absolute;
+margin-left: 660px;
+margin-top: 517px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point27 {
+position:absolute;
+margin-left: 630px;
+margin-top: 550px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point28 {
+position:absolute;
+margin-left: 440px;
+margin-top: 550px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point29 {
+position:absolute;
+margin-left: 250px;
+margin-top: 550px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}
+div.Point30 {
+position:absolute;
+margin-left: 80px;
+margin-top: 550px;
+width:20px;
+height:20px;
+background: #bfbfbf;
+-moz-border-radius:50px;
+-webkit-border-radius:50px;
+border-radius:50px;
+}

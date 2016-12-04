@@ -1,0 +1,224 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>EC544 Group7</title>
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<link rel="stylesheet" href="css/controlPad.css" type = "text/css" media= "all" charset="utf-8">
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+	<link href="css/localize.css" rel="stylesheet" type="text/css" media="all"/>
+
+
+	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial" rel="stylesheet" />
+	<link href="default.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
+	<!--<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">-->
+
+	<!-- Custom Theme files -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="js/prefixfree.min.js"></script>
+
+</head>
+<body>
+	<!--header start here-->
+	<div class="header">
+		<h3 class="main-head" style="color: white">EC544 Group7</h3> <!--320 240-->
+		<!-- Start Wheel speed & Direction-->
+		<!--<div class="head-strip">-->
+			<!--&lt;!&ndash; <div class="head-strip-left">-->
+				<!--<span class="joe"><img src="images/1.png" alt=""> </span>-->
+				<!--<div class="joe-text">-->
+					<!--<h2>Welcome back Joe Black</h2>-->
+					<!--<p>Es bueno volver a verte de nuevo por acá!</p>-->
+				<!--</div>-->
+			<!--</div> &ndash;&gt;-->
+			<!--<div class="head-strip-left">-->
+				<!--<ul class="strip-date">-->
+					<!--<li><span class="cal"> </span><h4>Wheel Speed:</h4></li>-->
+					<!--<li><h4>10</h4></li>-->
+				<!--</ul>-->
+
+				<!--</div>-->
+			<!--<div class="head-strip-right">-->
+				<!--<ul class="strip-date">-->
+					<!--<li><span class="cal"> </span><h4>Direction:</h4></li>-->
+					<!--<li><h4>North</h4></li>-->
+				<!--</ul>-->
+
+				<!--</div>-->
+					<!--<div class="clearfix"> </div>-->
+			<!--</div>-->
+
+		<!--End wheel speed & direction-->
+
+		<!--Left part start here-->
+		<div class="header-bottom">
+			<div class="col-md-4 header-bot-left">
+			<!--Camera control start here-->
+			<div class="user-profile">
+				<div class="today-status" style="background-color:deepskyblue">
+					<div class="today-text"><h6 style="text-align: center; font-size: x-large">Webcam</h6></div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="user-prof-top" style="height:300px; background-color:#fafafa">
+        <!-- Get Webcan -->
+				<img id="video" src="www.google.com" class="video" height="270" width="360"/>
+
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<!--camera control end here-->
+
+			<!--Remote control start here-->
+			<div class="ring-states">
+				<div class="today-status" style="background-color: deepskyblue">
+					<div class="today-text">
+							<h6 style="text-align: center; font-size: x-large">Remote Control</h6>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+
+				<div style="background-color: gainsboro">
+					<!-- Control Pad -->
+					<!-- Forward Back Left Right -->
+					<div class="dpad-pane">
+						<div class="dpad-hole"></div>
+						<div id="dpad">
+							<canvas height="150" id="dpad-body" width="150"></canvas>
+							<button class="button" id="up"></button>
+							<button class="button" id="right">
+							</button><button class="button" id="down"></button>
+							<button class="button" id="left"></button>
+						</div>
+					</div>
+
+
+					<!-- Control Crawler Start or Stop -->
+					<div class="action-pane">
+						<div class="buttons">
+							<label class="label">Start<button class="button" id="b"></button></label>
+							<label class="label">Stop<button class="button" id="a"></button></label>
+						</div>
+					</div>
+
+				</div>
+
+				<div id="welcome" class="container" style="background-color: deepskyblue; width: 420px">
+					<div class="title" style="background-color: transparent">
+						<label class="switch" style="margin-left:50px; margin-top:0px;">
+							<input id="checkbox" class="switch-input" type="checkbox" onclick onchange="onoff()"/>
+							<span class="switch-label" data-on="On" data-off="Off"></span>
+							<span class="switch-handle"></span>
+						</label>
+					</div>
+				</div>
+
+			</div>
+			<!--Remote control end here-->
+
+		</div>
+	</div>
+  <!--End left part-->
+
+	<!--Right Part-->
+	<div class="col-md-8 header-bot-right">
+		<!--Localization start here-->
+		<div class="analytic">
+			<div class="analytic-top">
+				<div class="infograpy" style="background-color: transparent"><h6 style="text-align: center; font-size: xx-large; color: deepskyblue">Localization</h6></div>
+				<div class="clearfix"> </div>
+				<div style="height:620px">
+					<img id="room" class="displayed" src="images/Room.jpg" margin-top="30px" position="relative" width="800" height="600" alt="" />
+					<img id="Red" class="point" src="images/Red.png" alt="CAR" position="absolute" height="30px" width="30px"/>
+
+			</div>
+    </div>
+
+	<!--<div id="welcome" class="container">-->
+		<!--<div class="title">-->
+			<!--<label class="switch" style="margin-left:445px; margin-top:0px;">-->
+				<!--<input id="checkbox" class="switch-input" type="checkbox" onclick onchange="onoff()"/>-->
+				<!--<span class="switch-label" data-on="On" data-off="Off"></span>-->
+				<!--<span class="switch-handle"></span>-->
+			<!--</label>-->
+		<!--</div>-->
+	<!--</div>-->
+
+
+
+</body>
+<script src="js/index.js">
+</script>
+
+
+<script>
+	var socket = io();
+	var locationArr = [["160px", "370px"], ["160px", "650px"], ["500px","650px"], ["950px", "650px"],
+		["950px", "370px"], ["950px", "100px"], ["500px", "100px"], ["160px", "100px"]];
+	var location1 = ["",""];
+	var location2 = ["",""];
+	var location3 = ["",""];
+	socket.on('location', function(location){
+		location3 = location2;
+		location2 = location1;
+		location1 = locationArr[parseInt(location)-1];
+	});
+</script>
+
+<!--<script>-->
+	<!--var partition;-->
+	<!--var remoteCar;-->
+	<!--var flag = false;-->
+	<!--function init(){-->
+		<!--var Red = document.getElementById("Red");-->
+		<!--Red.style.position= 'absolute';-->
+		<!--Red.style.left = "950px";-->
+		<!--Red.style.top="650px";-->
+	<!--}-->
+	<!--function forward(){-->
+		<!--if(flag){-->
+			<!--remoteCar = 2;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function back(){-->
+		<!--if(flag){-->
+			<!--remoteCar = 3;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function left(){-->
+		<!--if(flag){-->
+			<!--//alert("F");-->
+			<!--remoteCar = 4;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function right(){-->
+		<!--if(flag){-->
+			<!--remoteCar = 5;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function stop(){-->
+		<!--//alert("S");-->
+		<!--if(flag){-->
+			<!--remoteCar = 6;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function onoff(){-->
+		<!--flag = !flag;-->
+<!--//	alert(flag.toString());-->
+		<!--if(flag){-->
+			<!--remoteCar = 1;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}else{-->
+			<!--remoteCar = 0;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--window.onload = init;-->
+<!--</script>-->
+</html>
