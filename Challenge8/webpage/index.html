@@ -1,19 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Challenge 8</title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial" rel="stylesheet" />
-<link href="default.css" rel="stylesheet" type="text/css" media="all" />
-<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
-<script src="/socket.io/socket.io.js"></script>
-<script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial" rel="stylesheet" />
+	<link href="default.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
+	<!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+	<script>
     var socket = io();
+	var locationArr = [["160px", "370px"], ["160px", "650px"], ["500px","650px"], ["950px", "650px"],
+						["950px", "370px"], ["950px", "100px"], ["500px", "100px"], ["160px", "100px"]];
+	var location1 = ["",""];
+	var location2 = ["",""];
+	var location3 = ["",""];
+
+	socket.on('location', function(location){
+		location3 = location2;
+		location2 = location1;
+		location1 = locationArr[parseInt(location)-1];
+	});
 </script>
-<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
 <script>
 
 var partition;
@@ -22,44 +38,13 @@ var flag = false;
 
 function init(){
 	var Red = document.getElementById("Red");
-	Red.style.left = "220px";
-   	Red.style.top="240px";
-}
-
-  
-
- socket.on('location', function(location){ 
-    partition = parseInt(location);
-  });
-
- 	
-function moveRight(partition){
-	
-	var index = partition;
-	//var index = 5;
-	if(index<=7 && index>=1)
-	{
-		Red.style.left = -80 + Math.round(index* 160) + 'px';
-		Red.style.top = 70 + 'px';
-	}
-	else if(index>=9 && index<=15)
-	{
-	  Red.style.left = -80 + (16-index) * 160 + 'px';
-	  Red.style.top = 400 + 'px';
-	}
-	else if(index == 8)
-	{
-	  Red.style.top = 235 + 'px';
-	  Red.style.left = 1050 + 'px';
-	}
-	else{
-		Red.style.top = 235 + 'px';
-		Red.style.left = 80 + 'px';
-	}
+	Red.style.position= 'absolute';
+	Red.style.left = "950px";
+  	Red.style.top="650px";
 }
 
 function forward(){
-		if(flag){		   
+		if(flag){
 		remoteCar = 2;
 		socket.emit('remoteCar', remoteCar.toString());
 		}
@@ -101,53 +86,71 @@ function onoff(){
 		remoteCar = 0;
 		socket.emit('remoteCar', remoteCar.toString());
 	}
-}		
+}
 
-
-window.onload = function(){init();}
-setInterval(function(){ moveRight(partition);}, 2000);
+window.onload = init;
 
 </script>
-<!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 
 </head>
 <body>
-<div id="header-wrapper">
-	<div id="header" class="container">
-		<div id="logo">
-        	<!--<span class="icon icon-cog"></span>-->
-			<h1 style="font-size: xx-large; color: white">Challenge 8</h1></br>
-			<h1 style="font-size: x-large; color: white">Autonomous Driving with Remote Monitoring and Control</h1>
-		</div>
+<!--<div id="header-wrapper">-->
+	<!--<div id="header" class="container">-->
+		<!--<div id="logo">-->
+        	<!--&lt;!&ndash;<span class="icon icon-cog"></span>&ndash;&gt;-->
+			<!--<h1 style="font-size: xx-large; color: white">Challenge 8</h1></br>-->
+			<!--<h1 style="font-size: x-large; color: white">Autonomous Driving with Remote Monitoring and Control</h1>-->
+		<!--</div>-->
+	<!--</div>-->
+<!--</div>-->
+
+<div class="wrapper">
+	<div style="margin-left: 300px">
+
+	<img id="room" class="displayed" src="images/Room.jpg" margin-top="30px" position="relative" width="800" height="600" alt="" /></div>
+	<div style="margin:0 auto; width:1000px;"/>
+	<img id="Red" class="point" src="images/Red.png" alt="CAR" position="absolute" height="30px" width="30px"/>
+	<img id="video" src="www.google.com" class="video" height="270" width="360"/>
+	<canvas height="150" id="dpad-body" width="150"></canvas>
+	<!--http://192.168.1.143:8080/?action=stream-->
+</div>
+
+<div id="welcome" class="container">
+	<div class="title">
+		<label class="switch" style="margin-left:445px; margin-top:0px;">
+			<input id="checkbox" class="switch-input" type="checkbox" onclick onchange="onoff()"/>
+			<span class="switch-label" data-on="On" data-off="Off"></span>
+			<span class="switch-handle"></span>
+		</label>
 	</div>
 </div>
-<div class="wrapper">
-	<div style="margin-left: 180px">
-	  <img id="room" class="displayed" src="images/4floor.jpg" width="1100" height="700" alt=""/>
-	  <img id="Red" class="point" src="images/Red.png" height="30px" width="30px"/>
-		<div>
-			<img id="video" src="http://ec544d.ddns.net:8081/" class="video" height="320px" width="480px"/>
+
+<div>
+	<!-- Control Pad -->
+	<!-- Forward Back Left Right -->
+	<div class="dpad-pane">
+		<div class="dpad-hole"></div>
+		<div id="dpad">
+			<canvas height="150" id="dpad-body" width="150"></canvas>
+			<button class="button" id="up"></button>
+			<button class="button" id="right">
+			</button><button class="button" id="down"></button>
+			<button class="button" id="left"></button>
 		</div>
 	</div>
 
-	<div>
-		<button onClick="forward()" class="myButton" style="position: absolute; top: 500px; left: 100px;">F</button>
-		<p><button onClick="right()" class="myButtonPink" style="position: absolute; top: 575px; left: 20px;">R</button>
-		<button onClick="stop()" class="myButtonRed" style="position: absolute; top: 575px; left: 100px;">P</button>
-		<button onClick="left()" class="myButtonBlue" style="position: absolute; top: 575px; left: 180px;">L</button>
-		</p>
-		<button onClick="back()" class="myButton" style="position: absolute; top: 650px; left: 100px;">R</button>
+
+	<!-- Control Crawler Start or Stop -->
+	<div class="action-pane">
+		<div class="buttons">
+			<label class="label">Start<button class="button" id="b"></button></label>
+			<label class="label">Stop<button class="button" id="a"></button></label>
+		</div>
 	</div>
-	<div id="welcome" class="container">
-	<div class="title">
-	<label class="switch" style="margin-left:445px; margin-top:0px;">
-		<input id="checkbox" class="switch-input" type="checkbox" onclick onchange="onoff()"/>
-		<span class="switch-label" data-on="On" data-off="Off"></span>
-		<span class="switch-handle"></span>
-	</label>
-	</div>
-  </div>
+
 </div>
+
+
 
 </body>
 </html>
