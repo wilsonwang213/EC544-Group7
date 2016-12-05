@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+<body>
+
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+<form id="f0" action="">
+<button onClick="goStraight()" >Straight</button>
+</form>
+
+<form id="f1" action="">
+<button onClick="goBack()" >Back</button>
+</form>
+
+<form id="f2" action="">
+<button onClick="turnLeft()" >Left</button>
+</form>
+
+<form id="f3" action="">
+<button onClick="turnRight()" >Right</button>
+</form>
+
+<form id="f4" action="">
+<button onClick="carStop()" >Stop</button>
+</form>
+
+<form id="f5" action="">
+    <button onClick="autoMode()" >Auto</button>
+</form>
+
+<form id="f6" action="">
+    <button onClick="manualMode()" >Manual</button>
+</form>
+
+<script>
+    // send data to arduino.
+    var socket = io();
+    $('#f0').submit(function(){
+        socket.emit('remoteCar', "2");
+        return false;
+    });
+    $('#f1').submit(function(){
+        socket.emit('remoteCar', "3");
+        return false;
+    });
+    $('#f2').submit(function(){
+        socket.emit('remoteCar', "4");
+        return false;
+    });
+    $('#f3').submit(function(){
+        socket.emit('remoteCar', "5");
+        return false;
+    });
+    $('#f4').submit(function(){
+        socket.emit('remoteCar', "6");
+        return false;
+    });
+    $('#f5').submit(function(){
+        socket.emit('remoteCar', "0");
+        return false;
+    });
+    $('#f6').submit(function(){
+        socket.emit('remoteCar', "1");
+        return false;
+    });
+
+</script>
+
+</body>
+</html>
