@@ -33,23 +33,13 @@ var CARStatus = '0';
 sp1 = new SerialPort.SerialPort(portName1, portConfig1);
 sp2 = new SerialPort.SerialPort(portName2, portConfig2);
 
+app.use('/default', express.static(__dirname + 'webpage/default'));
+app.use('/font', express.static(__dirname + 'webpage/font'));
+app.use('/css', express.static(__dirname + 'webpage/css'));
+app.use('/', express.static(__dirname + '/webpage'));
+
 app.get('/', function(req, res){
-  res.sendfile('index.html');
-});
-
-// app.use('/default', express.static(__dirname + '/default'));
-app.use('/fonts', express.static(__dirname + '/fonts'));
-app.use('/images',express.static(__dirname + '/images'));
-app.use('/',express.static(__dirname + '/'));
-app.use('/css',express.static(__dirname + '/css'));
-
-
-app.get('/default.css',function(req, res){
-  res.sendfile('default.css');
-});
-
-app.get('/fonts.css',function(req, res){
-  res.sendfile('fonts.css');
+  res.sendfile('webpage/index.html');
 });
 
 io.on('connection', function(socket){
