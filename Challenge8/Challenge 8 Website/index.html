@@ -86,10 +86,22 @@
 						<div class="dpad-hole"></div>
 						<div id="dpad">
 							<canvas height="150" id="dpad-body" width="150"></canvas>
-							<button class="button" id="up"></button>
-							<button class="button" id="right">
-							</button><button class="button" id="down"></button>
-							<button class="button" id="left"></button>
+
+							<form id="f0" action="">
+							<button onClick="goStraight()" class="button" id="up"></button>
+							</form>
+
+							<form id="f1" action="">
+							<button onClick="goBack()" class="button" id="down"></button>
+							</form>
+
+							<form id="f2" action="">
+							<button onClick="turnLeft()" class="button" id="left"></button>
+							</form>
+
+							<form id="f3" action="">
+							<button onClick="turnRight() class="button" id="right"></button>
+							</form>
 						</div>
 					</div>
 
@@ -97,8 +109,11 @@
 					<!-- Control Crawler Start or Stop -->
 					<div class="action-pane">
 						<div class="buttons">
+
 							<label class="label">Start<button class="button" id="b"></button></label>
-							<label class="label">Stop<button class="button" id="a"></button></label>
+							<form id="f4" action="">
+							<label class="label">Stop<button onClick="carStop()" class="button" id="a"></button></label>
+							</form>
 						</div>
 					</div>
 
@@ -108,7 +123,7 @@
 					<div class="title" style="background-color: transparent">
 						<label class="switch" style="margin-left:50px; margin-top:0px;">
 							<input id="checkbox" class="switch-input" type="checkbox" onclick onchange="onoff()"/>
-							<span class="switch-label" data-on="On" data-off="Off"></span>
+							<span class="switch-label" data-on="Auto" data-off="Manual"></span>
 							<span class="switch-handle"></span>
 						</label>
 					</div>
@@ -151,6 +166,40 @@
 <script src="js/index.js">
 </script>
 
+
+<script>
+    // send data to arduino.
+    var socket = io();
+    $('#f0').submit(function(){
+        socket.emit('remoteCar', "2");
+        return false;
+    });
+    $('#f1').submit(function(){
+        socket.emit('remoteCar', "3");
+        return false;
+    });
+    $('#f2').submit(function(){
+        socket.emit('remoteCar', "4");
+        return false;
+    });
+    $('#f3').submit(function(){
+        socket.emit('remoteCar', "5");
+        return false;
+    });
+    $('#f4').submit(function(){
+        socket.emit('remoteCar', "6");
+        return false;
+    });
+    $('#f5').submit(function(){
+        socket.emit('remoteCar', "0");
+        return false;
+    });
+    $('#f6').submit(function(){
+        socket.emit('remoteCar', "1");
+        return false;
+    });
+
+</script>
 
 <script>
 	var socket = io();

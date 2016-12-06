@@ -8,6 +8,7 @@
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 	<link href="css/localize.css" rel="stylesheet" type="text/css" media="all"/>
 
+	<script src="/socket.io/socket.io.js"></script>
 
 	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial" rel="stylesheet" />
 	<link href="default.css" rel="stylesheet" type="text/css" media="all" />
@@ -21,6 +22,8 @@
 
 </head>
 <body>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	<!--header start here-->
 	<div class="header">
 		<h3 class="main-head" style="color: white">EC544 Group7</h3> <!--320 240-->
@@ -86,21 +89,13 @@
 						<div class="dpad-hole"></div>
 						<div id="dpad">
 							<canvas height="150" id="dpad-body" width="150"></canvas>
-							<form id="f0" action="">
 							<button onClick="goStraight()" class="button" id="up"></button>
-							</form>
 
-							<form id="f1" action="">
 							<button onClick="goBack()" class="button" id="down"></button>
-							</form>
 
-							<form id="f2" action="">
 							<button onClick="turnLeft()" class="button" id="left"></button>
-							</form>
 
-							<form id="f3" action="">
 							<button onClick="turnRight()" class="button" id="right"></button>
-							</form>
 						</div>
 					</div>
 
@@ -108,10 +103,7 @@
 					<!-- Control Crawler Start or Stop -->
 					<div class="action-pane">
 						<div class="buttons">
-							<form id="f0" action="">
 							<label onClick="goStraight()" class="label">Start<button class="button" id="b"></button></label>
-							</form>
-							<form id="f4" action="">
 							<label class="label">Stop<button onClick="carStop()" class="button" id="a"></button></label>
 						</div>
 					</div>
@@ -121,12 +113,8 @@
 				<div id="welcome" class="container" style="background-color: deepskyblue; width: 370px">
 					<div class="title" style="background-color: transparent">
 						<div style="margin-left:10px; margin-top:0px;">
-							<form id="f5" action="">
 							<button onClick="autoMode()" class="button" style="width: 70px; height: 40px">Manual</button>
-							</form>
-							<form id="f6" action="">
 							<button onClick="manualMode()" class="button" style="width: 70px; height: 40px">Auto</button>
-							</form>
 
 							<!---->
 							<!--&lt;!&ndash;<input id="checkbox" class="switch-input" type="checkbox" onclick onchange="onoff()"/>&ndash;&gt;-->
@@ -176,35 +164,41 @@
 <script>
     // send data to arduino.
     var socket = io();
-    $('#f0').submit(function(){
-        socket.emit('remoteCar', "2");
-        return false;
-    });
-    $('#f1').submit(function(){
-        socket.emit('remoteCar', "3");
-        return false;
-    });
-    $('#f2').submit(function(){
-        socket.emit('remoteCar', "4");
-        return false;
-    });
-    $('#f3').submit(function(){
-        socket.emit('remoteCar', "5");
-        return false;
-    });
-    $('#f4').submit(function(){
-        socket.emit('remoteCar', "6");
-        return false;
-    });
-    $('#f5').submit(function(){
-        socket.emit('remoteCar', "0");
-        return false;
-    });
-    $('#f6').submit(function(){
-        socket.emit('remoteCar', "1");
-        return false;
-    });
+    function goStraight(){
+		socket.emit('remoteCar', "2");
 
+    }
+
+    function goBack(){
+    	socket.emit('remoteCar', "3");
+       
+    }
+
+    function turnLeft() {
+    	socket.emit('remoteCar', "4");
+        
+    }
+
+    function turnRight() {
+    	socket.emit('remoteCar', "5");
+        
+    }
+
+    function carStop() {
+    	socket.emit('remoteCar', "6");
+        
+    }
+
+    function autoMode() {
+    	socket.emit('remoteCar', "0");
+        
+    }
+
+    function manualMode() {
+    	socket.emit('remoteCar', "1");
+        
+    }
+    
 </script>
 
 <script>
