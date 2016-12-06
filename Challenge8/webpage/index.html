@@ -1,28 +1,219 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML>
+<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title></title>
-	<meta name="keywords" content="" />
-	<meta name="description" content="" />
+	<title>EC544 Group7</title>
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<link rel="stylesheet" href="css/controlPad.css" type = "text/css" media= "all" charset="utf-8">
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+	<link href="css/localize.css" rel="stylesheet" type="text/css" media="all"/>
+
+
 	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Quicksand:400,700|Questrial" rel="stylesheet" />
 	<link href="default.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+	<!--<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">-->
 
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+	<!-- Custom Theme files -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="js/prefixfree.min.js"></script>
 
-	<!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
-	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+	<!--header start here-->
+	<div class="header">
+		<h3 class="main-head" style="color: white">EC544 Group7</h3> <!--320 240-->
+		<!-- Start Wheel speed & Direction-->
+		<!--<div class="head-strip">-->
+			<!--&lt;!&ndash; <div class="head-strip-left">-->
+				<!--<span class="joe"><img src="images/1.png" alt=""> </span>-->
+				<!--<div class="joe-text">-->
+					<!--<h2>Welcome back Joe Black</h2>-->
+					<!--<p>Es bueno volver a verte de nuevo por acá!</p>-->
+				<!--</div>-->
+			<!--</div> &ndash;&gt;-->
+			<!--<div class="head-strip-left">-->
+				<!--<ul class="strip-date">-->
+					<!--<li><span class="cal"> </span><h4>Wheel Speed:</h4></li>-->
+					<!--<li><h4>10</h4></li>-->
+				<!--</ul>-->
 
-	<script>
+				<!--</div>-->
+			<!--<div class="head-strip-right">-->
+				<!--<ul class="strip-date">-->
+					<!--<li><span class="cal"> </span><h4>Direction:</h4></li>-->
+					<!--<li><h4>North</h4></li>-->
+				<!--</ul>-->
+
+				<!--</div>-->
+					<!--<div class="clearfix"> </div>-->
+			<!--</div>-->
+
+		<!--End wheel speed & direction-->
+
+		<!--Left part start here-->
+		<div class="header-bottom">
+			<div class="col-md-4 header-bot-left">
+			<!--Camera control start here-->
+			<div class="user-profile">
+				<div class="today-status" style="background-color:deepskyblue; height: 60px">
+					<div class="today-text"><h6 style="text-align: center; font-size: x-large">Webcam</h6></div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="user-prof-top" style="height:260px; background-color:#fafafa">
+        <!-- Get Webcan -->
+				<img id="video" src="www.google.com" class="video" height="270" width="360"/>
+
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<!--camera control end here-->
+
+			<!--Remote control start here-->
+			<div class="ring-states">
+				<div class="today-status" style="background-color: deepskyblue; height: 60px">
+					<div class="today-text">
+							<h6 style="text-align: center; font-size: x-large">Remote Control</h6>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+
+				<div style="background-color: gainsboro">
+					<!-- Control Pad -->
+					<!-- Forward Back Left Right -->
+					<div class="dpad-pane">
+						<div class="dpad-hole"></div>
+						<div id="dpad">
+							<canvas height="150" id="dpad-body" width="150"></canvas>
+							<form id="f0" action="">
+							<button onClick="goStraight()" class="button" id="up"></button>
+							</form>
+
+							<form id="f1" action="">
+							<button onClick="goBack()" class="button" id="down"></button>
+							</form>
+
+							<form id="f2" action="">
+							<button onClick="turnLeft()" class="button" id="left"></button>
+							</form>
+
+							<form id="f3" action="">
+							<button onClick="turnRight()" class="button" id="right"></button>
+							</form>
+						</div>
+					</div>
+
+
+					<!-- Control Crawler Start or Stop -->
+					<div class="action-pane">
+						<div class="buttons">
+							<form id="f0" action="">
+							<label onClick="goStraight()" class="label">Start<button class="button" id="b"></button></label>
+							</form>
+							<form id="f4" action="">
+							<label class="label">Stop<button onClick="carStop()" class="button" id="a"></button></label>
+						</div>
+					</div>
+
+				</div>
+
+				<div id="welcome" class="container" style="background-color: deepskyblue; width: 370px">
+					<div class="title" style="background-color: transparent">
+						<div style="margin-left:10px; margin-top:0px;">
+							<form id="f5" action="">
+							<button onClick="autoMode()" class="button" style="width: 70px; height: 40px">Manual</button>
+							</form>
+							<form id="f6" action="">
+							<button onClick="manualMode()" class="button" style="width: 70px; height: 40px">Auto</button>
+							</form>
+
+							<!---->
+							<!--&lt;!&ndash;<input id="checkbox" class="switch-input" type="checkbox" onclick onchange="onoff()"/>&ndash;&gt;-->
+							<!--&lt;!&ndash;<span class="switch-label" data-on="On" data-off="Off"></span>&ndash;&gt;-->
+							<!--&lt;!&ndash;<span class="switch-handle"></span>&ndash;&gt;-->
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!--Remote control end here-->
+
+		</div>
+	</div>
+  <!--End left part-->
+
+	<!--Right Part-->
+	<div class="col-md-8 header-bot-right">
+		<!--Localization start here-->
+		<div class="analytic">
+			<div class="analytic-top">
+				<div class="infograpy" style="background-color: transparent"><h6 style="text-align: center; font-size: xx-large; color: deepskyblue">Localization</h6></div>
+				<div class="clearfix"> </div>
+				<div style="height:560px">
+					<img id="room" class="displayed" src="images/Room.jpg" margin-top="30px" position="relative" width="720" height="540" alt="" />
+					<img id="Red" class="point" src="images/Red.png" alt="CAR" position="absolute" height="30px" width="30px"/>
+
+			</div>
+    </div>
+
+	<!--<div id="welcome" class="container">-->
+		<!--<div class="title">-->
+			<!--<label class="switch" style="margin-left:445px; margin-top:0px;">-->
+				<!--<input id="checkbox" class="switch-input" type="checkbox" onclick onchange="onoff()"/>-->
+				<!--<span class="switch-label" data-on="On" data-off="Off"></span>-->
+				<!--<span class="switch-handle"></span>-->
+			<!--</label>-->
+		<!--</div>-->
+	<!--</div>-->
+
+
+
+</body>
+<script src="js/index.js">
+</script>
+
+<script>
+    // send data to arduino.
     var socket = io();
+    $('#f0').submit(function(){
+        socket.emit('remoteCar', "2");
+        return false;
+    });
+    $('#f1').submit(function(){
+        socket.emit('remoteCar', "3");
+        return false;
+    });
+    $('#f2').submit(function(){
+        socket.emit('remoteCar', "4");
+        return false;
+    });
+    $('#f3').submit(function(){
+        socket.emit('remoteCar', "5");
+        return false;
+    });
+    $('#f4').submit(function(){
+        socket.emit('remoteCar', "6");
+        return false;
+    });
+    $('#f5').submit(function(){
+        socket.emit('remoteCar', "0");
+        return false;
+    });
+    $('#f6').submit(function(){
+        socket.emit('remoteCar', "1");
+        return false;
+    });
+
+</script>
+
+<script>
+	var socket = io();
 	var locationArr = [["160px", "370px"], ["160px", "650px"], ["500px","650px"], ["950px", "650px"],
-						["950px", "370px"], ["950px", "100px"], ["500px", "100px"], ["160px", "100px"]];
+		["950px", "370px"], ["950px", "100px"], ["500px", "100px"], ["160px", "100px"]];
 	var location1 = ["",""];
 	var location2 = ["",""];
 	var location3 = ["",""];
-
 	socket.on('location', function(location){
 		location3 = location2;
 		location2 = location1;
@@ -30,127 +221,59 @@
 	});
 </script>
 
-<script>
-
-var partition;
-var remoteCar;
-var flag = false;
-
-function init(){
-	var Red = document.getElementById("Red");
-	Red.style.position= 'absolute';
-	Red.style.left = "950px";
-  	Red.style.top="650px";
-}
-
-function forward(){
-		if(flag){
-		remoteCar = 2;
-		socket.emit('remoteCar', remoteCar.toString());
-		}
-}
-
-function back(){
-	if(flag){
-		remoteCar = 3;
-		socket.emit('remoteCar', remoteCar.toString());
-	}
-}
-function left(){
-	if(flag){
-		//alert("F");
-		remoteCar = 4;
-		socket.emit('remoteCar', remoteCar.toString());
-	}
-}
-function right(){
-	if(flag){
-		remoteCar = 5;
-		socket.emit('remoteCar', remoteCar.toString());
-	}
-}
-function stop(){
-	//alert("S");
-	if(flag){
-		remoteCar = 6;
-		socket.emit('remoteCar', remoteCar.toString());
-	}
-}
-function onoff(){
-	flag = !flag;
-//	alert(flag.toString());
-	if(flag){
-		remoteCar = 1;
-		socket.emit('remoteCar', remoteCar.toString());
-	}else{
-		remoteCar = 0;
-		socket.emit('remoteCar', remoteCar.toString());
-	}
-}
-
-window.onload = init;
-
-</script>
-
-</head>
-<body>
-<!--<div id="header-wrapper">-->
-	<!--<div id="header" class="container">-->
-		<!--<div id="logo">-->
-        	<!--&lt;!&ndash;<span class="icon icon-cog"></span>&ndash;&gt;-->
-			<!--<h1 style="font-size: xx-large; color: white">Challenge 8</h1></br>-->
-			<!--<h1 style="font-size: x-large; color: white">Autonomous Driving with Remote Monitoring and Control</h1>-->
-		<!--</div>-->
-	<!--</div>-->
-<!--</div>-->
-
-<div class="wrapper">
-	<div style="margin-left: 300px">
-
-	<img id="room" class="displayed" src="images/Room.jpg" margin-top="30px" position="relative" width="800" height="600" alt="" /></div>
-	<div style="margin:0 auto; width:1000px;"/>
-	<img id="Red" class="point" src="images/Red.png" alt="CAR" position="absolute" height="30px" width="30px"/>
-	<img id="video" src="www.google.com" class="video" height="270" width="360"/>
-	<canvas height="150" id="dpad-body" width="150"></canvas>
-	<!--http://192.168.1.143:8080/?action=stream-->
-</div>
-
-<div id="welcome" class="container">
-	<div class="title">
-		<label class="switch" style="margin-left:445px; margin-top:0px;">
-			<input id="checkbox" class="switch-input" type="checkbox" onclick onchange="onoff()"/>
-			<span class="switch-label" data-on="On" data-off="Off"></span>
-			<span class="switch-handle"></span>
-		</label>
-	</div>
-</div>
-
-<div>
-	<!-- Control Pad -->
-	<!-- Forward Back Left Right -->
-	<div class="dpad-pane">
-		<div class="dpad-hole"></div>
-		<div id="dpad">
-			<canvas height="150" id="dpad-body" width="150"></canvas>
-			<button class="button" id="up"></button>
-			<button class="button" id="right">
-			</button><button class="button" id="down"></button>
-			<button class="button" id="left"></button>
-		</div>
-	</div>
-
-
-	<!-- Control Crawler Start or Stop -->
-	<div class="action-pane">
-		<div class="buttons">
-			<label class="label">Start<button class="button" id="b"></button></label>
-			<label class="label">Stop<button class="button" id="a"></button></label>
-		</div>
-	</div>
-
-</div>
-
-
-
-</body>
+<!--<script>-->
+	<!--var partition;-->
+	<!--var remoteCar;-->
+	<!--var flag = false;-->
+	<!--function init(){-->
+		<!--var Red = document.getElementById("Red");-->
+		<!--Red.style.position= 'absolute';-->
+		<!--Red.style.left = "950px";-->
+		<!--Red.style.top="650px";-->
+	<!--}-->
+	<!--function forward(){-->
+		<!--if(flag){-->
+			<!--remoteCar = 2;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function back(){-->
+		<!--if(flag){-->
+			<!--remoteCar = 3;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function left(){-->
+		<!--if(flag){-->
+			<!--//alert("F");-->
+			<!--remoteCar = 4;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function right(){-->
+		<!--if(flag){-->
+			<!--remoteCar = 5;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function stop(){-->
+		<!--//alert("S");-->
+		<!--if(flag){-->
+			<!--remoteCar = 6;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function onoff(){-->
+		<!--flag = !flag;-->
+<!--//	alert(flag.toString());-->
+		<!--if(flag){-->
+			<!--remoteCar = 1;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}else{-->
+			<!--remoteCar = 0;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--window.onload = init;-->
+<!--</script>-->
 </html>
