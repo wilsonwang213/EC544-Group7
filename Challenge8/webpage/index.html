@@ -197,7 +197,9 @@
     	socket.emit('remoteCar', "1");
         
     }
-    
+    function location5() {
+		socket.emit('remoteCar', "7");
+	}
 </script>
 
 <script>
@@ -211,6 +213,10 @@
 		location3 = location2;
 		location2 = location1;
 		location1 = locationArr[parseInt(location)-1];
+		if(parseInt(location) == 5) {
+			location5();
+		}
+
 	});
 </script>
 
