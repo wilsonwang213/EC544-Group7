@@ -16,7 +16,7 @@ var CARStatus = '0';
 sp = new SerialPort.SerialPort(portName, portConfig);
 
 app.get('/', function(req, res){
-  res.sendfile('test.html');
+  res.sendfile('index.html');
 });
 
 app.use('/default', express.static(__dirname + '/default'));
