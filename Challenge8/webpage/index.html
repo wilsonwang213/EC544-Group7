@@ -66,7 +66,7 @@
 				</div>
 				<div class="user-prof-top" style="height:260px; background-color:#fafafa">
         <!-- Get Webcan -->
-				<img id="video" src="www.google.com" class="video" height="270" width="360"/>
+				<img id="video" src="http://192.168.1.186:8080/?action=stream" height="250" width="30`0"/>
 
 				</div>
 				<div class="clearfix"> </div>
@@ -141,6 +141,7 @@
 				<div style="height:560px">
 					<img id="room" class="displayed" src="images/Room.jpg" margin-top="30px" position="relative" width="720" height="540" alt="" />
 					<img id="Red" class="point" src="images/Red.png" alt="CAR" position="absolute" height="30px" width="30px"/>
+
 			</div>
     </div>
 
@@ -170,36 +171,34 @@
 
     function goBack(){
     	socket.emit('remoteCar', "3");
-       
+
     }
 
     function turnLeft() {
     	socket.emit('remoteCar', "4");
-        
+
     }
 
     function turnRight() {
     	socket.emit('remoteCar', "5");
-        
+
     }
 
     function carStop() {
     	socket.emit('remoteCar', "6");
-        
+
     }
 
     function autoMode() {
     	socket.emit('remoteCar', "0");
-        
+
     }
 
     function manualMode() {
     	socket.emit('remoteCar', "1");
-        
+
     }
-    function location5() {
-		socket.emit('remoteCar', "7");
-	}
+
 </script>
 
 <script>
@@ -213,42 +212,87 @@
 		location3 = location2;
 		location2 = location1;
 		location1 = locationArr[parseInt(location)-1];
-		if(parseInt(location) == 5) {
-			location5();
-		}
-
 	});
 </script>
-
 <script>
+   var Red = null;
+   var xbeer = null;
+   var xbeel = null;
+   var xbeeb = null;
+   var i=1;
+   function init(){
 
-	function init(){
-		Red = document.getElementById('Red');
+         Red.style.position= 'absolute';
+         Red.style.left ="0px";
+			   Red.style.top="250px";
 
-		xbeer = document.getElementById('right');
-		xbeel = document.getElementById('left');
-		xbeeb = document.getElementById('bottom');
-		xbeeb2 = document.getElementById('bottom2');
-		Red.style.position= 'absolute';
-		Red.style.left ="75px";
-		Red.style.top="85px";
-	}
-
-	function position(){
-		Red.style.left = location1[0];
-		Red.style.top = location1[1];
-		// Red.style.left = 31 + Math.round(location1[0] * 2.95) + 'px';
-		// Red.style.top = '165px';
-		// Red.style.left = parseInt(Red.style.left) + 20 + 'px';
-		// Red.style.top = parseInt(Red.style.top) + 10 + 'px';
-	}
-
-
-	window.onload = init;
-
-	setInterval(function(){
+    }
+  	function position(){
+        Red.style.left = location1[0];
+        Red.style.top = location1[1];
+				// Red.style.left = 31 + Math.round(location1[0] * 2.95) + 'px';
+				// Red.style.top = '165px';
+				// Red.style.left = parseInt(Red.style.left) + 20 + 'px';
+				// Red.style.top = parseInt(Red.style.top) + 10 + 'px';
+		}
+    window.onload = init;
+		setInterval(function(){
 		position();
-	}, 500);
+			   }, 500);
 </script>
-
+<!--<script>-->
+	<!--var partition;-->
+	<!--var remoteCar;-->
+	<!--var flag = false;-->
+	<!--function init(){-->
+		<!--var Red = document.getElementById("Red");-->
+		<!--Red.style.position= 'absolute';-->
+		<!--Red.style.left = "950px";-->
+		<!--Red.style.top="650px";-->
+	<!--}-->
+	<!--function forward(){-->
+		<!--if(flag){-->
+			<!--remoteCar = 2;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function back(){-->
+		<!--if(flag){-->
+			<!--remoteCar = 3;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function left(){-->
+		<!--if(flag){-->
+			<!--//alert("F");-->
+			<!--remoteCar = 4;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function right(){-->
+		<!--if(flag){-->
+			<!--remoteCar = 5;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function stop(){-->
+		<!--//alert("S");-->
+		<!--if(flag){-->
+			<!--remoteCar = 6;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--function onoff(){-->
+		<!--flag = !flag;-->
+<!--//	alert(flag.toString());-->
+		<!--if(flag){-->
+			<!--remoteCar = 1;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}else{-->
+			<!--remoteCar = 0;-->
+			<!--socket.emit('remoteCar', remoteCar.toString());-->
+		<!--}-->
+	<!--}-->
+	<!--window.onload = init;-->
+<!--</script>-->
 </html>
