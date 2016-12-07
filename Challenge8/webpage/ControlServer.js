@@ -7,6 +7,7 @@ var xbee_api = require('xbee-api');
 var fs = require('fs');
 var sampleDelay = 2000;
 var answer = 1;
+var postion = 0;
 var KNN = require('ml-knn');
 var C = xbee_api.constants;
 var XBeeAPI = new xbee_api.XBeeAPI({
@@ -33,13 +34,23 @@ var CARStatus = '0';
 sp1 = new SerialPort.SerialPort(portName1, portConfig1);
 sp2 = new SerialPort.SerialPort(portName2, portConfig2);
 
-app.use('/default', express.static(__dirname + 'webpage/default'));
-app.use('/font', express.static(__dirname + 'webpage/font'));
-app.use('/css', express.static(__dirname + 'webpage/css'));
-app.use('/', express.static(__dirname + '/webpage'));
-
 app.get('/', function(req, res){
-  res.sendfile('webpage/index.html');
+  res.sendfile('index.html');
+});
+
+// app.use('/default', express.static(__dirname + '/default'));
+app.use('/fonts', express.static(__dirname + '/fonts'));
+app.use('/images',express.static(__dirname + '/images'));
+app.use('/',express.static(__dirname + '/'));
+app.use('/css',express.static(__dirname + '/css'));
+
+
+app.get('/default.css',function(req, res){
+  res.sendfile('default.css');
+});
+
+app.get('/fonts.css',function(req, res){
+  res.sendfile('fonts.css');
 });
 
 io.on('connection', function(socket){
@@ -50,10 +61,14 @@ io.on('connection', function(socket){
   });
   socket.on('remoteCar', function(msg){
     CARStatus = msg;
-    sp1.write(msg + "\n");
+    sp1.write(msg);
+    // sp1.write(postion + "\n");
     console.log('message: ' + msg); // + msg
     io.emit('updated remoteCar', msg);
   });
+  // socket.on('location',function(location){
+  //
+  // });
 });
 
 http.listen(3000, function(){
@@ -111,17 +126,30 @@ var trainingSet =[
 
 
 
-    [76,57,45,69],
-    [75,57,47,71],
-    [66,57,47,72],
-    [72,53,46,73],
-    [74,58,46,67],
-    [70,57,44,71],
-// [75,53,51,75],
-[73,52,43,70],
-[67,52,45,74],
-[72,52,45,66],
-[68,53,44,66],
+    // [76,57,45,69],
+    // [75,57,47,71],
+    // [66,57,47,72],
+    // [72,53,46,73],
+    // [74,58,46,67],
+    // [70,57,44,71],
+// [75,53,51,75],//
+// [73,52,43,70],
+// [67,52,45,74],
+// [72,52,45,66],
+// [68,53,44,66],
+
+
+[75,45,41,67],
+[78,47,38,81],
+[69,41,36,76],
+[75,50,38,63],
+[80,64,45,75],
+[84,54,40,69],
+[79,63,41,70],
+[82,66,42,83],
+[76,78,39,77],
+[80,55,43,75],
+
 // [70,53,45,68],
 // [72,56,48,67],
 // [82,56,49,64],
@@ -160,25 +188,34 @@ var trainingSet =[
     [81,42,43,75],[77,42,43,76],
     // [80,42,43,79],[75,47,46,79],[74,45,45,76],
     // [79,42,39,82],[76,41,41,82],[77,40,44,83],[79,42,43,83],[76,41,43,83],
-    [77,42,42,80],[76,40,43,83],
-    [80,40,47,82],[75,41,42,82],
+    // [77,42,42,80],[76,40,43,83],
+    // [80,40,47,82],[75,41,42,82],
     // [79,41,43,84],
     // [72,36,49,81],[72,36,48,78],[70,37,48,75],[74,36,44,76],[72,37,47,75],
-    [74,36,45,77],[72,37,46,74],
+    // [74,36,45,77],[72,37,46,74],
     // [73,37,44,77],
     // [74,36,46,73],[75,36,43,75],
+    [84,53,47,85],
+[83,54,47,85],
+[79,47,48,78],
+[81,49,49,83],
 //5
 
 [71,36,45,69],
 [74,36,46,70],
 [73,37,48,70],
-[74,36,47,70],
-[74,36,47,70],
-[73,36,46,71],
-[74,36,47,70],
-[73,36,45,70],
-[74,36,46,69],
-[71,36,47,71],
+[74,38,47,70],
+[74,39,47,70],
+// [73,36,46,71],
+// [74,36,47,70],
+// [73,36,45,70],
+// [74,36,46,69],
+// [71,36,47,71],
+[69,41,46,75],
+[69,43,45,75],
+[68,40,47,75],
+[69,41,45,76],
+[66,42,46,76],
 //6
 
 
@@ -210,8 +247,10 @@ var trainingSet =[
 ];
 
 var predictions =
-[1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,
-    5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,9];
+[1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+    4,
+    // 5,5,5,5,5,5,5,5,5,5,
+    6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,9];
 
 
 knn.train(trainingSet, predictions);
@@ -236,7 +275,9 @@ var RSSIRequestPacket = {
 var requestRSSI = function(){
   sp2.write(XBeeAPI.buildFrame(RSSIRequestPacket));
   console.log("**********************************************************");
-  // //if(answer > 0 && answer < 51) {
+  // if(answer == 5) {
+  //    sp1.write("7");
+  // }
     io.emit('location', answer);
   //   //console.log("dataset: " + dataset);
     console.log("answer: " + answer);
@@ -278,8 +319,15 @@ XBeeAPI.on("frame_object", function(frame) {
       dataset[0][3] = frame.data[0];
 
     }
-
-    answer = knn.predict(dataset);
+    // if(dataset[0][2] > 50 && dataset[0][1]<45) {
+    //     answer = 6;
+    // }
+    // else if(dataset[0][1] < 50 && dataset[0][2] > 40){
+    //     answer = 5;
+    // }
+    // else{
+        answer = knn.predict(dataset);
+    // }
     // io.emit('location', answer);
     // console.log("answer: " + answer);
     // console.log("**********************************************************");
