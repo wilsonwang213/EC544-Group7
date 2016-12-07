@@ -157,7 +157,7 @@
 
 
 
-</body>
+</body onkeyup="Keytest(event)">
 <script src="js/index.js">
 </script>
 
@@ -201,6 +201,31 @@
 
 </script>
 
+<script>
+	function Keytest(event){
+		if(event.keyCode == 87){
+			goStraight();
+		}
+		if(event.keyCode == 83 ){
+			goBack();
+		}
+		if(event.keyCode == 65){
+			turnLeft();
+		}
+		if(event.keyCode ==68){
+			turnRight();
+		}
+		if(event.keyCode == 67){
+			carStop();
+		}
+		if (event.keyCode == 66){
+			autoMode();
+		}
+		if(event.keyCode == 86){
+			manualMode();
+		}
+	}
+</script>
 <script>
 	var socket = io();
 	var locationArr = [["75px", "260px"], ["75px", "520px"], ["380px","520px"], ["645px", "520px"],
