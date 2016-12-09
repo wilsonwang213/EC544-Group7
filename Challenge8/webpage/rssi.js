@@ -15,10 +15,6 @@ var XBeeAPI = new xbee_api.XBeeAPI({
 });
 
 var i = 0;
-// var j = 1;
-// var m = 1;
-// var n = 1;
-var answer = 1;
 var pre = 0;
 var portName1 = process.argv[2],
 portConfig1 = {
